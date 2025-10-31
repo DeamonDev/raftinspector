@@ -12,7 +12,7 @@ import (
 
 If you're not able to modify code, then you should use a metrics server adapter
 In that case your adapter will be readonly.
-This adapter allows modifying the state of the cluster.
+This adapter allows modifying the state of the cluster
 */
 type HashiCorpAdapter struct {
 	Node    *raft.Raft
