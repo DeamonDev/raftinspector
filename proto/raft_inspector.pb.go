@@ -27,10 +27,10 @@ type NodeInfo struct {
 	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Address           string                 `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 	State             string                 `protobuf:"bytes,3,opt,name=state,proto3" json:"state,omitempty"`
-	Term              uint64                 `protobuf:"varint,4,opt,name=term,proto3" json:"term,omitempty"`
-	CommitIndex       uint64                 `protobuf:"varint,5,opt,name=commit_index,json=commitIndex,proto3" json:"commit_index,omitempty"`
-	AppliedIndex      uint64                 `protobuf:"varint,6,opt,name=applied_index,json=appliedIndex,proto3" json:"applied_index,omitempty"`
-	LastSnapshotIndex uint64                 `protobuf:"varint,7,opt,name=last_snapshot_index,json=lastSnapshotIndex,proto3" json:"last_snapshot_index,omitempty"`
+	Term              string                 `protobuf:"bytes,4,opt,name=term,proto3" json:"term,omitempty"`
+	CommitIndex       string                 `protobuf:"bytes,5,opt,name=commit_index,json=commitIndex,proto3" json:"commit_index,omitempty"`
+	AppliedIndex      string                 `protobuf:"bytes,6,opt,name=applied_index,json=appliedIndex,proto3" json:"applied_index,omitempty"`
+	LastSnapshotIndex string                 `protobuf:"bytes,7,opt,name=last_snapshot_index,json=lastSnapshotIndex,proto3" json:"last_snapshot_index,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -86,32 +86,32 @@ func (x *NodeInfo) GetState() string {
 	return ""
 }
 
-func (x *NodeInfo) GetTerm() uint64 {
+func (x *NodeInfo) GetTerm() string {
 	if x != nil {
 		return x.Term
 	}
-	return 0
+	return ""
 }
 
-func (x *NodeInfo) GetCommitIndex() uint64 {
+func (x *NodeInfo) GetCommitIndex() string {
 	if x != nil {
 		return x.CommitIndex
 	}
-	return 0
+	return ""
 }
 
-func (x *NodeInfo) GetAppliedIndex() uint64 {
+func (x *NodeInfo) GetAppliedIndex() string {
 	if x != nil {
 		return x.AppliedIndex
 	}
-	return 0
+	return ""
 }
 
-func (x *NodeInfo) GetLastSnapshotIndex() uint64 {
+func (x *NodeInfo) GetLastSnapshotIndex() string {
 	if x != nil {
 		return x.LastSnapshotIndex
 	}
-	return 0
+	return ""
 }
 
 type ClusterInfo struct {
@@ -183,10 +183,10 @@ const file_raft_inspector_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x18\n" +
 	"\aaddress\x18\x02 \x01(\tR\aaddress\x12\x14\n" +
 	"\x05state\x18\x03 \x01(\tR\x05state\x12\x12\n" +
-	"\x04term\x18\x04 \x01(\x04R\x04term\x12!\n" +
-	"\fcommit_index\x18\x05 \x01(\x04R\vcommitIndex\x12#\n" +
-	"\rapplied_index\x18\x06 \x01(\x04R\fappliedIndex\x12.\n" +
-	"\x13last_snapshot_index\x18\a \x01(\x04R\x11lastSnapshotIndex\"Y\n" +
+	"\x04term\x18\x04 \x01(\tR\x04term\x12!\n" +
+	"\fcommit_index\x18\x05 \x01(\tR\vcommitIndex\x12#\n" +
+	"\rapplied_index\x18\x06 \x01(\tR\fappliedIndex\x12.\n" +
+	"\x13last_snapshot_index\x18\a \x01(\tR\x11lastSnapshotIndex\"Y\n" +
 	"\vClusterInfo\x12\x19\n" +
 	"\bnodes_id\x18\x01 \x03(\tR\anodesId\x12\x1b\n" +
 	"\tleader_id\x18\x02 \x01(\tR\bleaderId\x12\x12\n" +

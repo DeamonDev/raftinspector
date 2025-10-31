@@ -8,10 +8,10 @@ type NodeInfo struct {
 	ID                string
 	Address           string
 	State             string
-	Term              uint64
-	CommitIndex       uint64
-	AppliedIndex      uint64
-	LastSnapshotIndex uint64
+	Term              string
+	CommitIndex       string
+	AppliedIndex      string
+	LastSnapshotIndex string
 }
 
 type ClusterInfo struct {

@@ -2,8 +2,6 @@ package hashicorp
 
 import (
 	"context"
-	"log"
-	"strconv"
 
 	"github.com/deamondev/raftinspector"
 	"github.com/hashicorp/raft"
@@ -18,44 +16,41 @@ This adapter allows modifying the state of the cluster.
 */
 type HashiCorpAdapter struct {
 	Node    *raft.Raft
+	NodeID  string
 	Address string
 }
 
-func NewHashiCorpAdapter(r *raft.Raft, a string) *HashiCorpAdapter {
-	return &HashiCorpAdapter{Node: r, Address: a}
+func NewHashiCorpAdapter(r *raft.Raft, nodeID string, a string) *HashiCorpAdapter {
+	return &HashiCorpAdapter{Node: r, NodeID: nodeID, Address: a}
 }
 
-func (a *HashiCorpAdapter) NodeInfo(ctx context.Context) raftinspector.NodeInfo {
-	id := a.Node.String()
+func (a *HashiCorpAdapter) GetNodeInfo(ctx context.Context) raftinspector.NodeInfo {
+	nodeID := a.NodeID
 
 	state := a.Node.State().String()
 
-	term, err := strconv.ParseUint(a.Node.Stats()["term"], 10, 64)
-	if err != nil {
-		log.Printf("invalid term: %v", err)
-		term = 0
+	term := a.Node.Stats()["term"]
+	if term == "" {
+		term = "undefined"
 	}
 
-	commitIndex, err := strconv.ParseUint(a.Node.Stats()["commit_index"], 10, 64)
-	if err != nil {
-		log.Printf("invalid commit_index: %v", err)
-		commitIndex = 0
+	commitIndex := a.Node.Stats()["commit_index"]
+	if commitIndex == "" {
+		term = "undefined"
 	}
 
-	appliedIndex, err := strconv.ParseUint(a.Node.Stats()["applied_index"], 10, 64)
-	if err != nil {
-		log.Printf("invalid commit_index: %v", err)
-		appliedIndex = 0
+	appliedIndex := a.Node.Stats()["applied_index"]
+	if appliedIndex == "" {
+		term = "undefined"
 	}
 
-	lastSnapshotIndex, err := strconv.ParseUint(a.Node.Stats()["last_snapshot_index"], 10, 64)
-	if err != nil {
-		log.Printf("invalid last_snapshot_index: %v", err)
-		lastSnapshotIndex = 0
+	lastSnapshotIndex := a.Node.Stats()["last_snapshot_index"]
+	if lastSnapshotIndex == "" {
+		term = "undefined"
 	}
 
 	return raftinspector.NodeInfo{
-		ID:                id,
+		ID:                nodeID,
 		Address:           a.Address,
 		State:             state,
 		Term:              term,
@@ -65,6 +60,6 @@ func (a *HashiCorpAdapter) NodeInfo(ctx context.Context) raftinspector.NodeInfo 
 	}
 }
 
-func (a *HashiCorpAdapter) ClusterInfo(ctx context.Context) raftinspector.ClusterInfo {
+func (a *HashiCorpAdapter) GetClusterInfo(ctx context.Context) raftinspector.ClusterInfo {
 	return raftinspector.ClusterInfo{}
 }

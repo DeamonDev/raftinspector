@@ -20,7 +20,7 @@ func NewServer(adapter Adapter) *Server {
 }
 
 func (s *Server) GetNodeInfo(ctx context.Context, _ *emptypb.Empty) (*proto.NodeInfo, error) {
-	nodeInfo := s.adapter.NodeInfo(ctx)
+	nodeInfo := s.adapter.GetNodeInfo(ctx)
 
 	return &proto.NodeInfo{
 		Id:                nodeInfo.ID,
@@ -38,7 +38,7 @@ func (s *Server) GetClusterInfo(ctx context.Context, _ *emptypb.Empty) (*proto.C
 }
 
 func (s *Server) Run(network string, address string) error {
-	l, _ := net.Listen(network, address) // example [network=tcp, address=:50051]
+	l, _ := net.Listen(network, address) // example being [network=tcp, address=:50051]
 	grpcServer := grpc.NewServer()
 
 	reflection.Register(grpcServer)
